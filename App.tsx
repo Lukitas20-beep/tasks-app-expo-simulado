@@ -5,6 +5,8 @@ import Checkbox from 'expo-checkbox';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import TaskList from './src/components/TaskList';
 import { addTask, deleteTask, getAllTasks, updateTask, TaskItem } from './src/utils/handle-api';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { globalStyles } from './src/styles/global';
 
 export default function App() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
@@ -55,8 +57,8 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+    <SafeAreaProvider style={styles.safeArea}>
+      <View style={globalStyles.container}>
         <View style={styles.headerContainer}>
           <Image 
             source={require('./assets/task-app-banner.png')} 
@@ -66,7 +68,7 @@ export default function App() {
         </View>
 
         <View style={styles.counterContainer}>
-          <Text style={styles.counterText}>Total de Tarefas: {tasks.length}</Text>
+          <Text style={globalStyles.primaryText}>Total de Tarefas: {tasks.length}</Text>
         </View>
 
         <View style={styles.actionButtonsContainer}>
@@ -187,7 +189,7 @@ export default function App() {
       </Modal>
 
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
