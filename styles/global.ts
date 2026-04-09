@@ -17,4 +17,10 @@ export const globalStyles = StyleSheet.create({
     color: '#333333',
     lineHeight: 24,
   },
+  vencida: {
+    backgroundColor: '#e53935',
+  },
+  noPrazo:{
+    backgroundColor: '#43a047',
+  }
 });

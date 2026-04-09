@@ -60,10 +60,12 @@ export default function App() {
     <SafeAreaProvider style={styles.safeArea}>
       <View style={globalStyles.container}>
         <View style={styles.headerContainer}>
-          <Image 
-            source={require('./assets/task-app-banner.png')} 
-            style={styles.logo} 
-          />
+          {!loading && (
+            <Image 
+              source={require('./assets/task-app-banner.png')} 
+              style={styles.logo} 
+            />
+          )}
           <Text style={styles.header}>Tarefas</Text>
         </View>
 
