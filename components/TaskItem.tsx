@@ -12,7 +12,7 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, updateMode, deleteTask }) => {
   return (
-    <View style={styles.task}>
+    <View style={globalStyles.renderSectionHeader}>
       <View style={styles.contentContainer}>
         <Text style={[globalStyles.primaryText, !!task.completed && globalStyles.vencida, !task.completed && globalStyles.noPrazo]}>
           {task.text}

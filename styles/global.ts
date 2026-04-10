@@ -22,5 +22,12 @@ export const globalStyles = StyleSheet.create({
   },
   noPrazo:{
     backgroundColor: '#43a047',
-  }
+  },
+  renderSectionHeader:{
+    backgroundColor: '#f0f0f0',
+    fontWeight: 'bold',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    fontSize: 18,
+  },
 });
