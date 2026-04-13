@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather, AntDesign } from '@expo/vector-icons';
 import { TaskItem as TaskType } from '../utils/handle-api';
+import { globalStyles } from '../styles/global';
 
 interface TaskItemProps {
   task: TaskType;
@@ -11,13 +12,13 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, updateMode, deleteTask }) => {
   return (
-    <View style={styles.task}>
+    <View style={globalStyles.renderSectionHeader}>
       <View style={styles.contentContainer}>
-        <Text style={[styles.text, !!task.completed && styles.textCompleted]}>
+        <Text style={[globalStyles.primaryText, !!task.completed && globalStyles.vencida, !task.completed && globalStyles.noPrazo]}>
           {task.text}
         </Text>
         {task.dueDate && (
-          <Text style={styles.dateText}>
+          <Text style={globalStyles.bodyText}>
             Até: {new Date(task.dueDate).toLocaleDateString()}
           </Text>
         )}
