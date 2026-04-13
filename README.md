@@ -53,3 +53,18 @@ As requisições (operações CRUD) são feitas no arquivo `src/utils/handle-api
 - `App.tsx`: Ponto de entrada do aplicativo, interface principal e gerenciamento da lista de **tarefas** (`tasks`).
 - `src/components/Task.tsx`: Componente visual responsável por renderizar cada tarefa individualmente.
 - `src/utils/handle-api.ts`: Funções utilitárias (`getAllTasks`, `addTask`, `updateTask`, `deleteTask`) e interface de tipagem (`TaskItem`) para a comunicação unificada com o back-end.
+
+## 🚀 Deploy com EAS
+
+O EAS (Expo Application Services) é um serviço da Expo que permite gerar builds de aplicativos na nuvem,
+sem a necessidade de configurar manualmente o ambiente Android ou iOS na máquina local.
+
+Perfis de build:
+
+- development: usado durante o desenvolvimento
+- preview: versão para testes
+- production: versão final para publicação
+
+Comando de build:
+
+eas build --profile preview --platform android
