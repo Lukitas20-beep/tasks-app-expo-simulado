@@ -8,28 +8,36 @@ export interface TaskItem {
   text: string;
   completed?: boolean;
   dueDate?: string;
+  priority?: 'Baixa' | 'Média' | 'Alta';
 }
 
-export const getAllTasks = (setTasks: React.Dispatch<React.SetStateAction<TaskItem[]>>, setLoading?: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const getAllTasks = (
+  setTasks: React.Dispatch<React.SetStateAction<TaskItem[]>>,
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   if (setLoading) setLoading(true);
-  axios.get<TaskItem[]>(`${baseURL}`).then(({ data }) => {
-    setTasks(data);
-    if (setLoading) setLoading(false);
-  }).catch((err) => {
-    console.log(err);
-    if (setLoading) setLoading(false);
-  });
+  axios
+    .get<TaskItem[]>(`${baseURL}`)
+    .then(({ data }) => {
+      setTasks(data);
+      if (setLoading) setLoading(false);
+    })
+    .catch((err) => {
+      console.log(err);
+      if (setLoading) setLoading(false);
+    });
 };
 
 export const addTask = (
   text: string,
   completed: boolean,
   dueDate: string | null,
+  priority: 'Baixa' | 'Média' | 'Alta',
   setTasks: React.Dispatch<React.SetStateAction<TaskItem[]>>,
   onSuccess: () => void
 ) => {
   axios
-    .post(`${baseURL}/save`, { text, completed, dueDate })
+    .post(`${baseURL}/save`, { text, completed, dueDate, priority })
     .then(() => {
       onSuccess();
       getAllTasks(setTasks);
@@ -42,11 +50,12 @@ export const updateTask = (
   text: string,
   completed: boolean,
   dueDate: string | null,
+  priority: 'Baixa' | 'Média' | 'Alta',
   setTasks: React.Dispatch<React.SetStateAction<TaskItem[]>>,
   onSuccess: () => void
 ) => {
   axios
-    .post(`${baseURL}/update`, { _id: taskId, text, completed, dueDate })
+    .post(`${baseURL}/update`, { _id: taskId, text, completed, dueDate, priority })
     .then(() => {
       onSuccess();
       getAllTasks(setTasks);
@@ -60,6 +69,21 @@ export const deleteTask = (
 ) => {
   axios
     .post(`${baseURL}/delete`, { _id })
+    .then(() => {
+      getAllTasks(setTasks);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const deleteAllTasks = (
+  tasks: TaskItem[],
+  setTasks: React.Dispatch<React.SetStateAction<TaskItem[]>>
+) => {
+  Promise.all(
+    tasks.map((task) =>
+      axios.post(`${baseURL}/delete`, { _id: task._id })
+    )
+  )
     .then(() => {
       getAllTasks(setTasks);
     })
